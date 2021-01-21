@@ -8,37 +8,37 @@ class ContactRepository {
         Contact(
             title = "Mr.", first = "Joel", last = "Espinal",
             phone = "809-579-5555", cell = "829-444-5555",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
         Contact(
             title = "Mr.", first = "German", last = "Espinal",
             phone = "809-588-5555", cell = "829-444-5445",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
         Contact(
             title = "Mr.", first = "German", last = "Espinal",
             phone = "809-588-5555", cell = "829-444-5445",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
         Contact(
             title = "Mr.", first = "German", last = "Espinal",
             phone = "809-588-5555", cell = "829-444-5445",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
         Contact(
             title = "Mr.", first = "German", last = "Espinal",
             phone = "809-588-5555", cell = "829-444-5445",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
         Contact(
             title = "Mr.", first = "German", last = "Espinal",
             phone = "809-588-5555", cell = "829-444-5445",
-            thumbnail = "https://randomuser.me/api/portraits/thumb/men/75.jpg",
+            thumbnail = "https://randomuser.me/api/portraits/med/men/75.jpg",
             largePicture = "https://randomuser.me/api/portraits/men/75.jpg",
         ),
     )
