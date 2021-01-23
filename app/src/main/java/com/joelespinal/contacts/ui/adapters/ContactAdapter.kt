@@ -50,5 +50,6 @@ class ContactAdapter(private var contacts: MutableList<Contact>) :
 
     fun updateContacts(contacts: MutableList<Contact>) {
         this.contacts = contacts
+        notifyDataSetChanged()
     }
 }
