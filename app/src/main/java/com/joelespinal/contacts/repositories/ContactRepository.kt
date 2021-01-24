@@ -52,17 +52,16 @@ class ContactRepository {
         ),
     )
 
-    private val contacts = MutableLiveData<List<Contact>>()
     private val contactApiService = Retrofit.instance.create(ContactApi::class.java)
 
-    fun fetchContacts(): MutableLiveData<List<Contact>> {
-//        contacts.value = dummyContacts
+    fun fetchContacts2(): MutableLiveData<List<Contact>> {
+        val contacts = MutableLiveData<List<Contact>>()
 
         if (ConnectivityHelper.getConnectionType() != Network.NONE) {
             try {
                 GlobalScope.launch(Dispatchers.Main) {
                     val response = withContext(Dispatchers.IO) {
-                        contactApiService.fetchUsers(limit = 5)
+                        contactApiService.fetchUsers(limit = 5, page = 1)
                     }
 
                     if (response.isSuccessful && response.body() != null) {
@@ -83,4 +82,5 @@ class ContactRepository {
         }
         return contacts
     }
+
 }
