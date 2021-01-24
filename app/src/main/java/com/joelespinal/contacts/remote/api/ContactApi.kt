@@ -10,5 +10,8 @@ interface ContactApi {
 
     @Headers("Content-Type: application/json")
     @GET("/api")
-    suspend fun fetchUsers(@Query("results") limit: Int): Response<ContactsResponse>
+    suspend fun fetchUsers(
+        @Query("page") page: Int,
+        @Query("results") limit: Int
+    ): Response<ContactsResponse>
 }
