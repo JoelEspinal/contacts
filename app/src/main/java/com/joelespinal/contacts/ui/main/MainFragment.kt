@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.joelespinal.contacts.databinding.MainFragmentBinding
-import com.joelespinal.contacts.models.Contact
 import com.joelespinal.contacts.ui.adapters.ContactAdapter
 import com.joelespinal.contacts.ui.adapters.GridSpacingItemDecoration
-import java.util.*
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
@@ -27,7 +24,6 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,11 +50,29 @@ class MainFragment : Fragment() {
         )
 
         contactsRecycleView.layoutManager = contactLayoutManager
-        contactsAdapter = ContactAdapter(Collections.emptyList())
+        contactsAdapter = ContactAdapter()
         contactsRecycleView.adapter = contactsAdapter
-        viewModel.fetchContacts().observe(this, Observer {
-            contactsAdapter.updateContacts(it as MutableList<Contact>)
+        mainFragmentBinding.contactsRecycleView.adapter = contactsAdapter
+
+        val contactLiveData = viewModel.getContactsLiveData()
+
+        contactLiveData.observe(this, {
+            updateView(it.size);
+            contactsAdapter.submitList(it)
         })
+
+        mainFragmentBinding.refresh.setOnClickListener((View.OnClickListener {
+            viewModel.refresh()
+        }))
     }
 
+    private fun updateView(itemCount: Int) {
+//        if (itemCount > 0) {
+//            mainFragmentBinding.contactsRecycleView.visibility = View.VISIBLE
+        mainFragmentBinding.todoListEmptyView.visibility = View.GONE
+//        } else {
+//            mainFragmentBinding.contactsRecycleView.visibility = View.GONE
+//            mainFragmentBinding.todoListEmptyView.visibility = View.VISIBLE
+//        }
+    }
 }
