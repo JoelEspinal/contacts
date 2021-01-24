@@ -1,15 +1,22 @@
 package com.joelespinal.contacts.ui.main
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagedList
 import com.joelespinal.contacts.models.Contact
-import com.joelespinal.contacts.repositories.ContactRepository
+import com.joelespinal.contacts.ui.paging.ContactSourceFactory
+
 
 class MainViewModel() : ViewModel() {
+    private val contactDataSourceFactory: ContactSourceFactory =
+        ContactSourceFactory(viewModelScope)
 
-    private val contactRepository = ContactRepository()
+    fun getContactsLiveData(): LiveData<PagedList<Contact>> {
+        return contactDataSourceFactory.contactsLiveData
+    }
 
-    fun fetchContacts(): MutableLiveData<List<Contact>> {
-        return contactRepository.fetchContacts()
+    fun refresh() {
+        contactDataSourceFactory.contactsLiveData.value?.dataSource?.invalidate()
     }
 }
