@@ -1,11 +1,17 @@
 package com.joelespinal.contacts.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Contact(
-    val title: String?,
-    val first: String?,
-    val last: String?,
-    val phone: String?,
-    val cell: String?,
-    val thumbnail: String?,
-    val largePicture: String?
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo(name = "title") val title: String?,
+    @ColumnInfo(name = "first") val first: String?,
+    @ColumnInfo(name = "last") val last: String?,
+    @ColumnInfo(name = "phone") val phone: String?,
+    @ColumnInfo(name = "cell") val cell: String?,
+    @ColumnInfo(name = "thumbnail") val thumbnail: String?,
+    @ColumnInfo(name = "largePicture") val largePicture: String?
 )
