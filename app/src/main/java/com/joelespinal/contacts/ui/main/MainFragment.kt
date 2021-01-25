@@ -8,18 +8,29 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.joelespinal.contacts.databinding.MainFragmentBinding
+import com.joelespinal.contacts.main.App
 import com.joelespinal.contacts.ui.adapters.ContactAdapter
 import com.joelespinal.contacts.ui.adapters.GridSpacingItemDecoration
+import com.joelespinal.contacts.ui.adapters.SavedContactAdapter
+import com.joelespinal.contacts.utils.ResUtil
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var mainFragmentBinding: MainFragmentBinding
     private lateinit var contactsAdapter: ContactAdapter
+    private lateinit var savedContactsAdapter: SavedContactAdapter
     var spanCount = 3
     var spacing = 50
     var includeEdge = true
+    var savedSpanCount = if (ResUtil.isTablet(App.getContext())) 2 else 1
 
     private var contactLayoutManager = GridLayoutManager(context, spanCount)
+    private var savedContactLayoutManager = GridLayoutManager(
+        context,
+        savedSpanCount,
+        GridLayoutManager.HORIZONTAL,
+        false
+    )
 
     companion object {
         fun newInstance() = MainFragment()
@@ -37,6 +48,7 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         setupRecycleView()
+        setupSavedContactsRecycleVew()
     }
 
     private fun setupRecycleView() {
@@ -50,7 +62,7 @@ class MainFragment : Fragment() {
         )
 
         contactsRecycleView.layoutManager = contactLayoutManager
-        contactsAdapter = ContactAdapter()
+        contactsAdapter = ContactAdapter(viewModel)
         contactsRecycleView.adapter = contactsAdapter
         mainFragmentBinding.contactsRecycleView.adapter = contactsAdapter
 
@@ -64,6 +76,25 @@ class MainFragment : Fragment() {
         mainFragmentBinding.refresh.setOnClickListener((View.OnClickListener {
             viewModel.refresh()
         }))
+    }
+
+    private fun setupSavedContactsRecycleVew() {
+        val savedContactsRecycleView = mainFragmentBinding.savedContactsRecycleView
+        savedContactsRecycleView.addItemDecoration(
+            GridSpacingItemDecoration(
+                savedSpanCount,
+                1,
+                includeEdge
+            )
+        )
+
+        savedContactsRecycleView.layoutManager = savedContactLayoutManager
+        savedContactsAdapter = SavedContactAdapter(listOf())
+        mainFragmentBinding.savedContactsRecycleView.adapter = savedContactsAdapter
+        viewModel.getSavedContactsLiveData().observe(this, {
+            savedContactsAdapter.updateContacts(it)
+        }
+        )
     }
 
     private fun updateView(itemCount: Int) {

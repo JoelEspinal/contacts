@@ -1,16 +1,19 @@
 package com.joelespinal.contacts.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.joelespinal.contacts.databinding.ContactItemBinding
 import com.joelespinal.contacts.models.Contact
+import com.joelespinal.contacts.ui.main.MainViewModel
 import com.squareup.picasso.Picasso
 
 
-class ContactAdapter() : PagedListAdapter<Contact, ContactViewHolder>(DIFF_CALLBACK) {
+class ContactAdapter(private var mainViewModel: MainViewModel) : PagedListAdapter<Contact, ContactViewHolder>(DIFF_CALLBACK) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ContactItemBinding.inflate(layoutInflater, parent, false)
@@ -29,9 +32,12 @@ class ContactAdapter() : PagedListAdapter<Contact, ContactViewHolder>(DIFF_CALLB
 //            .placeholder(R.drawable.user_placeholder)
 //            .error(R.drawable.user_placeholder_error)
                 .into(holder.binding.picture)
+
+            holder.binding.contactItem.setOnClickListener((View.OnClickListener {
+                mainViewModel.saveContact(contact)
+            }))
+
         }
-
-
     }
 
     companion object {
