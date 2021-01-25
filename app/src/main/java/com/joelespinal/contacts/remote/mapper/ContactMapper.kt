@@ -23,6 +23,7 @@ class ContactMapper {
         var picture: Picture? = contactResponse.picture
 
         return Contact(
+            id = 0,
             title = name?.title,
             first = name?.first,
             last = name?.last,
