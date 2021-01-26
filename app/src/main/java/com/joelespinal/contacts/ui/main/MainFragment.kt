@@ -12,7 +12,9 @@ import com.joelespinal.contacts.main.App
 import com.joelespinal.contacts.ui.adapters.ContactAdapter
 import com.joelespinal.contacts.ui.adapters.GridSpacingItemDecoration
 import com.joelespinal.contacts.ui.adapters.SavedContactAdapter
+import com.joelespinal.contacts.ui.dialogs.AddContactDialog
 import com.joelespinal.contacts.utils.ResUtil
+
 
 class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
@@ -49,6 +51,9 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         setupRecycleView()
         setupSavedContactsRecycleVew()
+        mainFragmentBinding.addNew.setOnClickListener((View.OnClickListener {
+            showForDialog()
+        }))
     }
 
     private fun setupRecycleView() {
@@ -105,5 +110,10 @@ class MainFragment : Fragment() {
 //            mainFragmentBinding.contactsRecycleView.visibility = View.GONE
 //            mainFragmentBinding.todoListEmptyView.visibility = View.VISIBLE
 //        }
+    }
+
+    fun showForDialog() {
+        val contactFormDialog = AddContactDialog()
+        contactFormDialog.show(fragmentManager!!, "form")
     }
 }
