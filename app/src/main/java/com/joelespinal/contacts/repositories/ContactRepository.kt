@@ -12,16 +12,17 @@ class ContactRepository(private val scope: CoroutineScope) {
     private val userDao = app.db.userDao()
     lateinit var contactsLiveData: LiveData<List<Contact>>
 
-    fun saveContact(contact: Contact) {
-        scope.launch {
-            userDao.insert(contact)
-        }
-    }
-
     init {
         scope.launch {
             contactsLiveData = userDao.getAll()
 
         }
     }
+
+    fun saveContact(contact: Contact) {
+        scope.launch {
+            userDao.insert(contact)
+        }
+    }
+
 }
