@@ -27,13 +27,16 @@ class SavedContactAdapter(private var contacts: List<Contact>) :
         val contact = contacts[position]
         if (contact != null) {
             holder.binding.name.text = "${contact.first}"
-            Picasso.get()
-                .load(contact.thumbnail)
-                .resize(200, 200)
-                .centerCrop()
-//            .placeholder(R.drawable.user_placeholder)
-//            .error(R.drawable.user_placeholder_error)
-                .into(holder.binding.picture)
+            if (!contact.thumbnail?.isNullOrEmpty()!!) {
+                Picasso.get()
+                    .load(contact.thumbnail)
+                    .resize(200, 200)
+                    .centerCrop()
+//                    .placeholder(R.drawable.ic_launcher_foreground)
+//                    .error(R.drawable.ic_launcher_foreground)
+                    .into(holder.binding.picture)
+            }
+
         }
     }
 
