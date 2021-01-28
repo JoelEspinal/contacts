@@ -67,7 +67,7 @@ class MainFragment : Fragment() {
         )
 
         contactsRecycleView.layoutManager = contactLayoutManager
-        contactsAdapter = ContactAdapter(viewModel)
+        contactsAdapter = ContactAdapter(context, viewModel)
         contactsRecycleView.adapter = contactsAdapter
         mainFragmentBinding.contactsRecycleView.adapter = contactsAdapter
 

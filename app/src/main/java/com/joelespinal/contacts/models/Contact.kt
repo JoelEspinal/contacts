@@ -3,8 +3,10 @@ package com.joelespinal.contacts.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 @Entity
+@Serializable
 data class Contact(
     @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "title") var title: String?,
@@ -14,5 +16,4 @@ data class Contact(
     @ColumnInfo(name = "cell") var cell: String?,
     @ColumnInfo(name = "thumbnail") var thumbnail: String? = "",
     @ColumnInfo(name = "largePicture") var largePicture: String? = ""
-){
-}
+)
