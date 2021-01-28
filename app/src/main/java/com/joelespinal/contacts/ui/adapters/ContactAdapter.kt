@@ -1,18 +1,23 @@
 package com.joelespinal.contacts.ui.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.joelespinal.contacts.databinding.ContactItemBinding
 import com.joelespinal.contacts.models.Contact
+import com.joelespinal.contacts.ui.DetailActivity
 import com.joelespinal.contacts.ui.main.MainViewModel
 import com.squareup.picasso.Picasso
 
 
-class ContactAdapter(private var mainViewModel: MainViewModel) : PagedListAdapter<Contact, ContactViewHolder>(DIFF_CALLBACK) {
+class ContactAdapter(private var context: Context?, private var mainViewModel: MainViewModel) :
+    PagedListAdapter<Contact, ContactViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,9 +39,14 @@ class ContactAdapter(private var mainViewModel: MainViewModel) : PagedListAdapte
                 .into(holder.binding.picture)
 
             holder.binding.contactItem.setOnClickListener((View.OnClickListener {
-                mainViewModel.saveContact(contact)
-            }))
+                val launchIntent = Intent(context, DetailActivity::class.java)
 
+
+
+                launchIntent.putExtra(DetailActivity.CONTACT_DETAIL, Gson().toJson(contact))
+
+                context?.startActivity(launchIntent)
+            }))
         }
     }
 
